@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+/* GET users listing. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Quiz TMM' });  //[TMM] este title va a verse en la vista index.ejs
+  res.send('respond with a resource');
 });
 
 module.exports = router;
