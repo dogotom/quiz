@@ -24,6 +24,5 @@ router.delete('/quizes/:quizId(\\d+)',     quizController.delete);
 router.get('/author',function(req,res) {
 	res.render('author',{ autor: 'Tomás Martín', errors: []});
 });
-//res.render('quizes/edit', {quiz:quiz, errors: []});
 
 module.exports = router;
