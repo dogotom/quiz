@@ -33,7 +33,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Helpers dinámicos:
 app.use(function(req, res, next){
+    var limiteInactividad = 120000;  // en milisegundos = 2 minutos
+    var horaActual = (new Date()).getTime();
+    if (req.session.user) {
+        if( horaActual > (req.session.horaUltimoAcceso + limiteInactividad)) {
+            // se ha superado el tiempo limite. Destruyo la sesion
+            delete req.session.user;
+        } else {
+            // actualizo hora de ultimo acceso
+            req.session.horaUltimoAcceso = horaActual;
+        }; 
+    };
+    next();
+});
 
+app.use(function(req, res, next){
     // guardar path en session.redir para despues del login
     if(!req.path.match(/\/login|\/logout/)) {
         req.session.redir = req.path;
